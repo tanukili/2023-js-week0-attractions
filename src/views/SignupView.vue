@@ -12,5 +12,7 @@ export default {
   <header>
     <FrontHeader />
   </header>
-  <h1>首頁</h1>
+  <h1>註冊</h1>
 </template>
+
+<style></style>
