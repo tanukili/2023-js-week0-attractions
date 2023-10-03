@@ -5,6 +5,17 @@ export default {
   components: {
     FrontHeader,
   },
+  methods: {
+    render() {
+      console.log('Hello');
+      this.axios.get('https://randomuser.me/api/').then((res) => {
+        console.log(res);
+      });
+    },
+  },
+  mounted() {
+    this.render();
+  },
 };
 </script>
 
