@@ -24,7 +24,7 @@ export default {
     // 加入收藏（token in cookie）
     addCollect() {
       // 避免重複加入
-      if (this.isCollected) {
+      if (this.isCollected && this.view.userId) {
         alert('已加入收藏');
         return;
       }
@@ -40,12 +40,10 @@ export default {
         })
         .then(() => {
           alert('加入成功');
-          console.log('456');
           this.$router.go(0);
         })
         .catch(() => {
           alert('請先登入');
-          console.log('123');
           this.$router.push('/login'); // vue router 內建方法
         });
     },
@@ -89,7 +87,8 @@ export default {
     <h1>景點詳細</h1>
     <h2 class="fw-bold">{{ view.name }}</h2>
     <p>{{ view.description }}</p>
-    <a href="#" @click.prevent="addCollect" v-if="isCollected">已收藏</a>
+    <!-- 已加入收藏 + 登入狀態 -->
+    <a href="#" @click.prevent="addCollect" v-if="isCollected && view.userId">已收藏</a>
     <a href="#" @click.prevent="addCollect" v-else>加入收藏</a>
   </div>
 </template>

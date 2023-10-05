@@ -1,39 +1,64 @@
+<script>
+export default {
+  data() {
+    return {
+      token: '',
+      haveToken: false,
+    };
+  },
+  methods: {
+    checkToken() {
+      if (this.token) {
+        this.haveToken = true;
+      }
+    },
+    logout() {
+      // 清除 cookie 資料
+      document.cookie = 'userToken=; max-age=43200';
+      document.cookie = 'userId=; max-age=43200';
+      alert('成功登出');
+      this.$router.push('/');
+      this.$router.go(0);
+    },
+  },
+  mounted() {
+    this.token = document.cookie.replace(
+      /(?:(?:^|.*;\s*)userToken\s*=\s*([^;]*).*$)|^.*$/,
+      '$1',
+    );
+    this.checkToken();
+  },
+};
+</script>
 <template>
-  <nav class="navbar navbar-expand-lg bg-body-tertiary">
+  <nav class="navbar navbar-expand bg-body-tertiary">
     <div class="container-fluid d-flex">
       <a class="navbar-brand" href="#">logo</a>
-      <div>
-        <button
-          class="navbar-toggler"
-          type="button"
-          data-bs-toggle="collapse"
-          data-bs-target="#navbarNav"
-          aria-controls="navbarNav"
-          aria-expanded="false"
-          aria-label="Toggle navigation"
-        >
-          <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav">
-            <li class="nav-item">
-              <RouterLink class="nav-link" aria-current="page" to="/"
-                >首頁</RouterLink
-              >
-            </li>
-            <li class="nav-item">
-              <RouterLink class="btn btn-primary mx-3" to="/signup"
-                >註冊</RouterLink
-              >
-            </li>
-            <li class="nav-item">
-              <RouterLink class="btn btn-outline-primary" to="/login"
-                >登入</RouterLink
-              >
-            </li>
-          </ul>
-        </div>
-      </div>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <RouterLink class="nav-link" aria-current="page" to="/"
+            >首頁</RouterLink
+          >
+        </li>
+        <li class="nav-item" v-if="haveToken">
+          <RouterLink class="nav-link" aria-current="page" to="/collects"
+            >收藏列表</RouterLink
+          >
+        </li>
+        <li class="nav-item" v-if="!haveToken">
+          <RouterLink class="btn btn-primary mx-2" to="/signup"
+          >註冊</RouterLink
+          >
+        </li>
+        <li class="nav-item" v-if="haveToken">
+          <a class="btn btn-outline-primary mx-2" href="#" @click.prevent="logout">登出</a>
+        </li>
+        <li class="nav-item" v-else>
+          <RouterLink class="btn btn-outline-primary mx-2" to="/login"
+            >登入</RouterLink
+          >
+        </li>
+      </ul>
     </div>
   </nav>
 </template>
