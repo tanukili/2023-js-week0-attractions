@@ -15,13 +15,15 @@ export default {
   },
   methods: {
     login() {
-      console.log('登入');
       this.axios
         .post('http://localhost:3000/login', this.user)
-        .then(() => {
+        .then((res) => {
           alert('登入成功');
-          this.user.email = '';
-          this.user.password = '';
+          // 儲存 token
+          const { accessToken } = res.data;
+          const { id } = res.data.user;
+          document.cookie = `userToken=${accessToken}; max-age=43200`;
+          document.cookie = `userId=${id}; max-age=43200`;
           window.location.href = '/';
         })
         .catch((err) => {
@@ -48,10 +50,10 @@ export default {
         <input type="password" id="password" v-model="user.password" />
       </div>
       <input
-        type="sybmit"
+        type="submit"
         class="btn btn-primary"
         value="登入"
-        @click="login"
+        @click.prevent="login"
       />
     </form>
   </div>

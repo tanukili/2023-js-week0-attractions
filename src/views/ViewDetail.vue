@@ -7,19 +7,76 @@ export default {
   },
   data() {
     return {
-      view: [],
+      view: {
+        viewId: null,
+      },
+      isCollected: false,
     };
   },
   methods: {
     render(id) {
       this.axios.get(`http://localhost:3000/views/${id}`).then((res) => {
-        this.view = res.data;
+        // 展開運算子組合需要的資料
+        this.view = { ...this.view, ...res.data };
+        this.view.id = null;
       });
+    },
+    // 加入收藏（token in cookie）
+    addCollect() {
+      // 避免重複加入
+      if (this.isCollected) {
+        alert('已加入收藏');
+        return;
+      }
+      // 取得 token
+      const token = document.cookie.replace(
+        /(?:(?:^|.*;\s*)userToken\s*=\s*([^;]*).*$)|^.*$/,
+        '$1',
+      );
+      // 權限 600
+      this.axios
+        .post('http://localhost:3000/600/collects', this.view, {
+          headers: { authorization: `Bearer ${token}` },
+        })
+        .then(() => {
+          alert('加入成功');
+          console.log('456');
+          this.$router.go(0);
+        })
+        .catch(() => {
+          alert('請先登入');
+          console.log('123');
+          this.$router.push('/login'); // vue router 內建方法
+        });
+    },
+    // 檢查是否已收藏
+    checkCollects() {
+      this.axios
+        .get('http://localhost:3000/collects?userId=2')
+        .then((res) => {
+          res.data.forEach((e) => {
+            if (e.viewId === this.view.viewId) {
+              this.isCollected = true;
+            }
+          });
+        })
+        .catch(() => {
+          alert('請先登入');
+        });
     },
   },
   mounted() {
-    const id = location.href.split('=')[1];
+    // 資料
+    const id = window.location.href.split('=')[1];
+    this.view.viewId = id;
+    const userId = document.cookie.replace(
+      /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
+      '$1',
+    );
+    this.view.userId = userId;
+    // 渲染
     this.render(id);
+    this.checkCollects();
   },
 };
 </script>
@@ -32,6 +89,7 @@ export default {
     <h1>景點詳細</h1>
     <h2 class="fw-bold">{{ view.name }}</h2>
     <p>{{ view.description }}</p>
-    <a href="">加入收藏</a>
+    <a href="#" @click.prevent="addCollect" v-if="isCollected">已收藏</a>
+    <a href="#" @click.prevent="addCollect" v-else>加入收藏</a>
   </div>
 </template>

@@ -20,8 +20,6 @@ export default {
         .post('http://localhost:3000/signup', this.user)
         .then(() => {
           alert('註冊成功');
-          this.user.email = '';
-          this.user.password = '';
           window.location.href = '#/login';
         })
         .catch((err) => {
