@@ -17,8 +17,6 @@ export default {
       document.cookie = 'userToken=; max-age=43200';
       document.cookie = 'userId=; max-age=43200';
       alert('成功登出');
-      this.$router.push('/');
-      this.$router.go(0);
     },
   },
   mounted() {

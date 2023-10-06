@@ -11,19 +11,14 @@ export default {
     };
   },
   methods: {
-    render() {
-      const userId = document.cookie.replace(
-        /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-        '$1',
-      );
+    render(id) {
       this.axios
-        .get(`http://localhost:3000/collects?userId=${userId}`)
+        .get(`http://localhost:3000/collects?userId=${id}`)
         .then((res) => {
           this.views = res.data;
         });
     },
     removeCollect(id) {
-      console.log(this.views);
       this.axios.delete(`http://localhost:3000/collects/${id}`)
         .then(() => {
           alert('成功移除');
@@ -35,7 +30,17 @@ export default {
     },
   },
   mounted() {
-    this.render();
+    const userId = document.cookie.replace(
+      /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
+      '$1',
+    );
+    if (!userId) {
+      // 未登入
+      this.$router.push('/');
+    } else {
+      // 已登入
+      this.render(userId);
+    }
   },
 };
 </script>

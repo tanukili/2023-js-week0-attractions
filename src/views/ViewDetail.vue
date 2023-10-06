@@ -11,6 +11,7 @@ export default {
         viewId: null,
       },
       isCollected: false,
+      isClick: false,
     };
   },
   methods: {
@@ -40,27 +41,30 @@ export default {
         })
         .then(() => {
           alert('加入成功');
-          this.$router.go(0);
+          this.isCollected = true;
         })
         .catch(() => {
           alert('請先登入');
           this.$router.push('/login'); // vue router 內建方法
         });
     },
-    // 檢查是否已收藏
+    // 檢查收藏狀態
     checkCollects() {
       this.axios
-        .get('http://localhost:3000/collects?userId=2')
+        .get(`http://localhost:3000/collects?userId=${this.view.userId}`)
         .then((res) => {
-          res.data.forEach((e) => {
-            if (e.viewId === this.view.viewId) {
-              this.isCollected = true;
-            }
-          });
+          const addedView = !!res.data.find(this.a);
+          if (addedView) {
+            this.isCollected = true;
+            this.isClick = true;
+          }
         })
-        .catch(() => {
-          alert('請先登入');
+        .catch((err) => {
+          console.log(err);
         });
+    },
+    a(view) {
+      return view.viewId === this.view.viewId;
     },
   },
   mounted() {
@@ -87,8 +91,10 @@ export default {
     <h1>景點詳細</h1>
     <h2 class="fw-bold">{{ view.name }}</h2>
     <p>{{ view.description }}</p>
-    <!-- 已加入收藏 + 登入狀態 -->
-    <a href="#" @click.prevent="addCollect" v-if="isCollected && view.userId">已收藏</a>
-    <a href="#" @click.prevent="addCollect" v-else>加入收藏</a>
+    <a href="#" @click.prevent="addCollect">
+      <!-- 加入後即時切換顯示-->
+      <span :class="{'d-none' : !isClick}">已收藏</span>
+      <span :class="{'d-none' : isClick}" @click="isClick = !isClick">加入收藏</span>
+    </a>
   </div>
 </template>
