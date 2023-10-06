@@ -91,10 +91,12 @@ export default {
     <h1>景點詳細</h1>
     <h2 class="fw-bold">{{ view.name }}</h2>
     <p>{{ view.description }}</p>
-    <a href="#" @click.prevent="addCollect">
+    <a href="#" @click.prevent="addCollect" v-if="view.userId !== ''">
       <!-- 加入後即時切換顯示-->
-      <span :class="{'d-none' : !isClick}">已收藏</span>
-      <span :class="{'d-none' : isClick}" @click="isClick = !isClick">加入收藏</span>
+      <span :class="{ 'd-none': !isClick }">已收藏</span>
+      <span :class="{ 'd-none': isClick }" @click="isClick = !isClick"
+        >加入收藏</span
+      >
     </a>
   </div>
 </template>

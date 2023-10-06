@@ -19,7 +19,8 @@ export default {
         });
     },
     removeCollect(id) {
-      this.axios.delete(`http://localhost:3000/collects/${id}`)
+      this.axios
+        .delete(`http://localhost:3000/collects/${id}`)
         .then(() => {
           alert('成功移除');
           this.render();
@@ -61,7 +62,12 @@ export default {
             </p>
           </div>
           <div class="card-footer">
-            <a href="#" class="btn btn-primary" @click.prevent="removeCollect(view.id)">移除收藏</a>
+            <a
+              href="#"
+              class="btn btn-primary"
+              @click.prevent="removeCollect(view.id)"
+              >移除收藏</a
+            >
           </div>
         </div>
       </li>

@@ -17,6 +17,13 @@ export default {
       document.cookie = 'userToken=; max-age=43200';
       document.cookie = 'userId=; max-age=43200';
       alert('成功登出');
+      // 判斷當下頁面：在其他頁面時導向首頁，在首頁時刷新
+      const location = window.location.href.split('#')[1];
+      if (location !== '/') {
+        this.$router.push('/');
+      } else {
+        this.$router.go(0);
+      }
     },
   },
   mounted() {
@@ -45,11 +52,16 @@ export default {
         </li>
         <li class="nav-item" v-if="!haveToken">
           <RouterLink class="btn btn-primary mx-2" to="/signup"
-          >註冊</RouterLink
+            >註冊</RouterLink
           >
         </li>
         <li class="nav-item" v-if="haveToken">
-          <a class="btn btn-outline-primary mx-2" href="#" @click.prevent="logout">登出</a>
+          <a
+            class="btn btn-outline-primary mx-2"
+            href="#"
+            @click.prevent="logout"
+            >登出</a
+          >
         </li>
         <li class="nav-item" v-else>
           <RouterLink class="btn btn-outline-primary mx-2" to="/login"
