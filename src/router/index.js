@@ -35,6 +35,11 @@ const router = createRouter({
       component: () => import('../views/AdminHome.vue'),
       children: [
         {
+          path: 'list',
+          name: 'list',
+          component: () => import('../views/AdminList.vue'),
+        },
+        {
           path: 'edit',
           name: 'edit',
           component: () => import('../views/AdminEdit.vue'),

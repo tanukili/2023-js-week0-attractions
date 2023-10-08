@@ -15,7 +15,7 @@ export default {
           >
         </li>
         <li class="nav-item">
-          <RouterLink class="nav-link" aria-current="page" to="/admin/edit"
+          <RouterLink class="nav-link" aria-current="page" to="/admin/list"
             >後台介面</RouterLink
           >
         </li>
