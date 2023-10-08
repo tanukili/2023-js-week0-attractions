@@ -1,10 +1,5 @@
 <script>
-import FrontHeader from '../components/FrontHeader.vue';
-
 export default {
-  components: {
-    FrontHeader,
-  },
   data() {
     return {
       view: {
@@ -32,7 +27,7 @@ export default {
       // 取得 token
       const token = document.cookie.replace(
         /(?:(?:^|.*;\s*)userToken\s*=\s*([^;]*).*$)|^.*$/,
-        '$1',
+        '$1'
       );
       // 權限 600
       this.axios
@@ -73,7 +68,7 @@ export default {
     this.view.viewId = id;
     const userId = document.cookie.replace(
       /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-      '$1',
+      '$1'
     );
     this.view.userId = userId;
     // 渲染
@@ -84,9 +79,6 @@ export default {
 </script>
 
 <template>
-  <header>
-    <FrontHeader />
-  </header>
   <div class="container mt-5">
     <h1>景點詳細</h1>
     <h2 class="fw-bold">{{ view.name }}</h2>

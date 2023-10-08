@@ -1,10 +1,5 @@
 <script>
-import FrontHeader from '../components/FrontHeader.vue';
-
 export default {
-  components: {
-    FrontHeader,
-  },
   data() {
     return {
       user: {
@@ -31,9 +26,6 @@ export default {
 </script>
 
 <template>
-  <header>
-    <FrontHeader />
-  </header>
   <div class="container mt-5">
     <h1>註冊</h1>
     <form action="#">

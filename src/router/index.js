@@ -29,6 +29,23 @@ const router = createRouter({
       name: 'collects',
       component: () => import('../views/UserCollects.vue'),
     },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import('../views/AdminHome.vue'),
+      children: [
+        {
+          path: 'edit',
+          name: 'edit',
+          component: () => import('../views/AdminEdit.vue'),
+        },
+        {
+          path: 'addnew',
+          name: 'addnew',
+          component: () => import('../views/AdminAddNew.vue'),
+        },
+      ],
+    },
   ],
 });
 

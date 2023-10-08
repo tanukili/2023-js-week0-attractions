@@ -1,5 +1,6 @@
 <script>
 export default {
+  props: ['logout'],
   data() {
     return {
       token: '',
@@ -12,24 +13,11 @@ export default {
         this.haveToken = true;
       }
     },
-    logout() {
-      // 清除 cookie 資料
-      document.cookie = 'userToken=; max-age=43200';
-      document.cookie = 'userId=; max-age=43200';
-      alert('成功登出');
-      // 判斷當下頁面：在其他頁面時導向首頁，在首頁時刷新
-      const location = window.location.href.split('#')[1];
-      if (location !== '/') {
-        this.$router.push('/');
-      } else {
-        this.$router.go(0);
-      }
-    },
   },
   mounted() {
     this.token = document.cookie.replace(
       /(?:(?:^|.*;\s*)userToken\s*=\s*([^;]*).*$)|^.*$/,
-      '$1',
+      '$1'
     );
     this.checkToken();
   },

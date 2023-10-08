@@ -1,10 +1,5 @@
 <script>
-import FrontHeader from '../components/FrontHeader.vue';
-
 export default {
-  components: {
-    FrontHeader,
-  },
   data() {
     return {
       user: {
@@ -21,9 +16,10 @@ export default {
           alert('登入成功');
           // 儲存 token
           const { accessToken } = res.data;
-          const { id } = res.data.user;
+          const { id, role } = res.data.user;
           document.cookie = `userToken=${accessToken}; max-age=43200`;
           document.cookie = `userId=${id}; max-age=43200`;
+          document.cookie = `role=${role}; max-age=43200`;
           window.location.href = '/';
         })
         .catch((err) => {
@@ -35,9 +31,6 @@ export default {
 </script>
 
 <template>
-  <header>
-    <FrontHeader />
-  </header>
   <div class="container mt-5">
     <h1>登入</h1>
     <form action="#">

@@ -1,10 +1,5 @@
 <script>
-import FrontHeader from '../components/FrontHeader.vue';
-
 export default {
-  components: {
-    FrontHeader,
-  },
   data() {
     return {
       views: [],
@@ -33,7 +28,7 @@ export default {
   mounted() {
     const userId = document.cookie.replace(
       /(?:(?:^|.*;\s*)userId\s*=\s*([^;]*).*$)|^.*$/,
-      '$1',
+      '$1'
     );
     if (!userId) {
       // 未登入
@@ -47,9 +42,6 @@ export default {
 </script>
 
 <template>
-  <header>
-    <FrontHeader></FrontHeader>
-  </header>
   <div class="container mt-5">
     <h1>我的收藏</h1>
     <ul class="row row-cols-2 row-cols-md-3 g-4 list-unstyled">
