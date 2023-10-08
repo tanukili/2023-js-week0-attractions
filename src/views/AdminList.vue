@@ -12,8 +12,19 @@ export default {
         this.views.forEach((e) => {
           e.href = `#/admin/edit?id=${e.id}`;
         });
-        console.log(this.views);
       });
+    },
+    deleteView(id) {
+      console.log('刪除');
+      this.axios
+        .delete(`http://localhost:3000/views/${id}`)
+        .then(() => {
+          alert('刪除成功');
+          this.render();
+        })
+        .catch(() => {
+          alert('刪除失敗');
+        });
     },
   },
   mounted() {
@@ -41,7 +52,12 @@ export default {
           <td>{{ view.description }}</td>
           <td>
             <a :href="view.href" class="btn btn-outline-secondary mb-2">編輯</a>
-            <a href="#" class="btn btn-outline-danger">刪除</a>
+            <a
+              @click.prevent="deleteView(view.id)"
+              href="#"
+              class="btn btn-outline-danger"
+              >刪除</a
+            >
           </td>
         </tr>
       </tbody>
