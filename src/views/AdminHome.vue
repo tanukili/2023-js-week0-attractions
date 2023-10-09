@@ -25,5 +25,5 @@ export default {
 </script>
 
 <template>
-  <RouterView :adminBlock="blockNotAdmin"></RouterView>
+  <RouterView></RouterView>
 </template>
