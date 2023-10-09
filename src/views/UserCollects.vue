@@ -8,14 +8,14 @@ export default {
   methods: {
     render(id) {
       this.axios
-        .get(`http://localhost:3000/collects?userId=${id}`)
+        .get(`${import.meta.env.VITE_APP_PATH}/collects?userId=${id}`)
         .then((res) => {
           this.views = res.data;
         });
     },
     removeCollect(id) {
       this.axios
-        .delete(`http://localhost:3000/collects/${id}`)
+        .delete(`${import.meta.env.VITE_APP_PATH}/collects/${id}`)
         .then(() => {
           alert('成功移除');
           this.render();

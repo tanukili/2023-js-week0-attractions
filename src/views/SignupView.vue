@@ -12,7 +12,7 @@ export default {
   methods: {
     signup() {
       this.axios
-        .post('http://localhost:3000/signup', this.user)
+        .post(`${import.meta.env.VITE_APP_PATH}/signup`, this.user)
         .then(() => {
           alert('註冊成功');
           window.location.href = '#/login';

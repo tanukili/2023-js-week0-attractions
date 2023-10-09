@@ -11,7 +11,7 @@ export default {
   methods: {
     addView(obj) {
       this.axios
-        .post('http://localhost:3000/views', obj)
+        .post(`${import.meta.env.VITE_APP_PATH}/views`, obj)
         .then(() => {
           alert('新增成功');
           this.view.name = '';

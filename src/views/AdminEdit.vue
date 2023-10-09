@@ -7,13 +7,15 @@ export default {
   },
   methods: {
     render(id) {
-      this.axios.get(`http://localhost:3000/views?id=${id}`).then((res) => {
-        this.view = res.data[0];
-      });
+      this.axios
+        .get(`${import.meta.env.VITE_APP_PATH}/views?id=${id}`)
+        .then((res) => {
+          this.view = res.data[0];
+        });
     },
     editView(obj) {
       this.axios
-        .patch(`http://localhost:3000/views/${this.view.id}`, obj)
+        .patch(`${import.meta.env.VITE_APP_PATH}/views/${this.view.id}`, obj)
         .then(() => {
           alert('編輯成功');
         })

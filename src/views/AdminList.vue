@@ -7,7 +7,7 @@ export default {
   },
   methods: {
     render() {
-      this.axios.get('http://localhost:3000/views').then((res) => {
+      this.axios.get(`${import.meta.env.VITE_APP_PATH}/views`).then((res) => {
         this.views = res.data;
         this.views.forEach((e) => {
           e.href = `#/admin/edit?id=${e.id}`;
@@ -17,7 +17,7 @@ export default {
     deleteView(id) {
       console.log('刪除');
       this.axios
-        .delete(`http://localhost:3000/views/${id}`)
+        .delete(`${import.meta.env.VITE_APP_PATH}/views/${id}`)
         .then(() => {
           alert('刪除成功');
           this.render();

@@ -11,11 +11,13 @@ export default {
   },
   methods: {
     render(id) {
-      this.axios.get(`http://localhost:3000/views/${id}`).then((res) => {
-        // 展開運算子組合需要的資料
-        this.view = { ...this.view, ...res.data };
-        this.view.id = null;
-      });
+      this.axios
+        .get(`${import.meta.env.VITE_APP_PATH}/views/${id}`)
+        .then((res) => {
+          // 展開運算子組合需要的資料
+          this.view = { ...this.view, ...res.data };
+          this.view.id = null;
+        });
     },
     // 加入收藏（token in cookie）
     addCollect() {
@@ -31,7 +33,7 @@ export default {
       );
       // 權限 600
       this.axios
-        .post('http://localhost:3000/600/collects', this.view, {
+        .post(`${import.meta.env.VITE_APP_PATH}/600/collects`, this.view, {
           headers: { authorization: `Bearer ${token}` },
         })
         .then(() => {
@@ -46,7 +48,9 @@ export default {
     // 檢查收藏狀態
     checkCollects() {
       this.axios
-        .get(`http://localhost:3000/collects?userId=${this.view.userId}`)
+        .get(
+          `${import.meta.env.VITE_APP_PATH}/collects?userId=${this.view.userId}`
+        )
         .then((res) => {
           const addedView = !!res.data.find(this.a);
           if (addedView) {

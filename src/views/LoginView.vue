@@ -11,7 +11,7 @@ export default {
   methods: {
     login() {
       this.axios
-        .post('http://localhost:3000/login', this.user)
+        .post(`${import.meta.env.VITE_APP_PATH}/login`, this.user)
         .then((res) => {
           alert('登入成功');
           // 儲存 token

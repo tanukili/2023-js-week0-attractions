@@ -7,7 +7,7 @@ export default {
   },
   methods: {
     render() {
-      this.axios.get('http://localhost:3000/views').then((res) => {
+      this.axios.get(`${import.meta.env.VITE_APP_PATH}/views`).then((res) => {
         this.views = res.data;
         this.views.forEach((e) => {
           e.href = `#/view?id=${e.id}`;
