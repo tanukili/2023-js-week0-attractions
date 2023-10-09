@@ -15,9 +15,17 @@ export default {
     };
   },
   methods: {
-    checkRole(role) {
+    checkRole() {
+      const role = document.cookie.replace(
+        /(?:(?:^|.*;\s*)role\s*=\s*([^;]*).*$)|^.*$/,
+        '$1'
+      );
+      const adminPage = window.location.href.split('/')[4]; // 需要權限的頁面
       if (role === 'admin') {
         this.isAdmin = true;
+      } else if (role !== 'admin' && adminPage === 'admin') {
+        // alert('您沒有權限進入');
+        // this.$router.push('/');
       }
     },
     // 移到父層，分別 prop 到子層
@@ -26,10 +34,12 @@ export default {
       document.cookie = 'userToken=; max-age=43200';
       document.cookie = 'userId=; max-age=43200';
       document.cookie = 'role=; max-age=43200';
+      // 更新身分
+      this.isAdmin = false;
       alert('成功登出');
       // 判斷當下頁面：在其他頁面時導向首頁，在首頁時刷新
-      const location = window.location.href.split('#')[1];
-      if (location !== '/') {
+      const nowpage = window.location.href.split('#')[1];
+      if (nowpage !== '/') {
         this.$router.push('/');
       } else {
         this.$router.go(0);
@@ -37,11 +47,7 @@ export default {
     },
   },
   mounted() {
-    const role = document.cookie.replace(
-      /(?:(?:^|.*;\s*)role\s*=\s*([^;]*).*$)|^.*$/,
-      '$1'
-    );
-    this.checkRole(role);
+    this.checkRole();
   },
 };
 </script>

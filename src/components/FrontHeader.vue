@@ -8,9 +8,12 @@ export default {
     };
   },
   methods: {
+    // 待修改：登出後沒刷新
     checkToken() {
       if (this.token) {
         this.haveToken = true;
+      } else {
+        this.haveToken = false;
       }
     },
   },
