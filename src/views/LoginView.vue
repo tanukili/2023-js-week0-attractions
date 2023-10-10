@@ -23,6 +23,7 @@ export default {
           window.location.href = '/';
         })
         .catch((err) => {
+          console.log(err.response);
           alert(`登入失敗：${err.response.data}`);
         });
     },
