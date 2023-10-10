@@ -20,12 +20,8 @@ export default {
         /(?:(?:^|.*;\s*)role\s*=\s*([^;]*).*$)|^.*$/,
         '$1'
       );
-      const adminPage = window.location.href.split('/')[4]; // 需要權限的頁面
       if (role === 'admin') {
         this.isAdmin = true;
-      } else if (role !== 'admin' && adminPage === 'admin') {
-        // alert('您沒有權限進入');
-        // this.$router.push('/');
       }
     },
     // 移到父層，分別 prop 到子層
@@ -47,6 +43,7 @@ export default {
     },
   },
   mounted() {
+    console.log(import.meta.env.VITE_APP_PATH);
     this.checkRole();
   },
 };
