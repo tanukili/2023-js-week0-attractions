@@ -12,5 +12,5 @@ export default defineConfig({
     },
   },
   // 注意：上線時所用基本公共路徑
-  base: '/2023-js-week0-attractions/',
+  base: '/2023-js-render-test-vue/',
 });
