@@ -33,8 +33,5 @@
   "main": "index.js",
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "engines": {
-    "node": "^14.18.0 || >=16.0.0"
-  }
+  "license": "ISC"
 }
