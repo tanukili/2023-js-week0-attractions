@@ -4,11 +4,13 @@ const jsonServer = require('json-server');
 // 建立server
 const server = jsonServer.create();
 const router = jsonServer.router('public/db.json');
+const middlewares = jsonServer.defaults();
 
 // /!\ Bind the router db to the app
-server.db = router.db;
+// server.db = router.db;
 
 // You must apply the auth middleware before the router
 // server.use(auth);
+server.use(middlewares);
 server.use(router);
 server.listen(3000);
