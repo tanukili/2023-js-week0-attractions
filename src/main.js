@@ -1,13 +1,17 @@
-const jsonServer = require('json-server');
-const auth = require('json-server-auth');
+import { createApp } from 'vue';
+import { createPinia } from 'pinia';
+import 'bootstrap/dist/css/bootstrap.min.css'; // 載入 BS.css
+import 'bootstrap'; // 載入 BS.js
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 
-const app = jsonServer.create();
-const router = jsonServer.router('db.json');
+import App from './App.vue';
+import router from './router';
 
-// /!\ Bind the router db to the app
-app.db = router.db;
+const app = createApp(App);
 
-// You must apply the auth middleware before the router
-app.use(auth);
+app.use(createPinia());
 app.use(router);
-app.listen(3000);
+app.use(VueAxios, axios);
+
+app.mount('#app');
