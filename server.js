@@ -13,4 +13,4 @@ const middlewares = jsonServer.defaults();
 // server.use(auth);
 server.use(middlewares);
 server.use(router);
-server.listen(3000);
+// server.listen(3000);
